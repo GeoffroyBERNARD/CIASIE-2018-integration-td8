@@ -1,0 +1,61 @@
+/* Couleurs par défaut (modifiable via _variables.sass) */
+$success: #a6e87d !default
+$danger: #ed5e4e !default
+$warning: #f2ac3c !default
+$information: #2fbaed !default
+$bg: null
+
+/* Tailles par défaut (modifiable via _variables.sass) */
+$padding-s: 1em !default
+$padding-m: 2em !default
+$padding-l: 3em !default
+
+/* Défini la taille des boutons */
+=btn_base($size)
+    @if $size == large
+        padding: $padding-l
+    @else if $size == medium
+        padding: $padding-m
+    @else 
+        $padding: $padding-s
+
+/* Défini la couleur des boutons selon le type
+=btn_color($type)
+    @if $type == "success"
+        $bg: $success !global
+    @else if $type == danger
+        $bg: $danger !global
+    @else if $type == warning
+        $bg: $warning !global
+    @else 
+        $bg: $information !global
+    background-color: lighten($bg, 25%)
+    color: $bg
+    &:hover
+        border-color: lighten($bg, 30%)
+
+/* Génère le css selon les classes*/
+=btn()
+    .btn
+        border-style: outset
+        border-radius: 25px
+        margin: 1em
+        cursor: pointer
+        &:active
+            border-style: inset
+        &.small
+            +btn_base(small)
+        &.medium
+            +btn_base(medium)
+        &.large
+            +btn_base(large)
+        &.success
+            +btn_color(success)
+        &.warning
+            +btn_color(warning)
+        &.information
+            +btn_color(information)
+        &.danger
+            +btn_color(danger)  
+
+    

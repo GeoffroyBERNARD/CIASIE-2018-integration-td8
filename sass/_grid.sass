@@ -1,0 +1,61 @@
+$gutter: 1.6% !default
+$tots: 15 !default
+$m-top: 1em !default
+$shadow: non !default
+$padding: 1em !default
+
+
+=row()
+    width: 100%
+    display: flex
+    margin-left: calc(#{$gutter} / 2)
+    flex-direction: row
+    flex-wrap: wrap
+    flex-shrink: 0
+
+=col($gutter,$m-top, $col-bg,$shadow,$padding)
+    padding: $padding
+    background-color: $col-bg
+    margin-left: $gutter
+    box-sizing: border-box
+    margin-top: $m-top
+    @if $shadow == oui
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+    &:first-child
+        margin-left: 0
+
+/* Mixin elements s m l */
+=elements($cols, $tots, $gutter)
+    @media screen and (max-width:767px)
+        .s#{$cols}
+            width: calc((100% - #{$gutter} * (#{$tots} / #{$cols})) / (#{$tots} / #{$cols}))
+    @media screen and (min-width: 768px) and (max-width: 1079px)
+        .m#{$cols}
+            width: calc((100% - #{$gutter} * (#{$tots} / #{$cols})) / (#{$tots} / #{$cols}))
+    @media screen and (min-width: 1080px)
+        .l#{$cols}
+            width: calc((100% - #{$gutter} * (#{$tots} / #{$cols})) / (#{$tots} / #{$cols}))
+
+
+/* Mixin offsets off-s off-m off-l*/
+=offsets($cols, $tots, $gutter)
+    @media screen and (max-width:767px)
+        .off-s#{$cols}
+            margin-left: calc((100% - #{$gutter} * (#{$tots} / #{$cols})) / (#{$tots} / #{$cols}) + 2 * #{$gutter})
+    @media screen and (min-width: 768px) and (max-width: 1079px)
+        .off-m#{$cols}
+            margin-left: calc((100% - #{$gutter} * (#{$tots} / #{$cols})) / (#{$tots} / #{$cols}) + 2 * #{$gutter})
+    @media screen and (min-width: 1080px)
+        .off-l#{$cols}
+            margin-left: calc((100% - #{$gutter} * (#{$tots} / #{$cols})) / (#{$tots} / #{$cols}) + 2 * #{$gutter})
+
+
+/* mixin générant le system de grille */
+=grid($tots, $gutter, $m-top, $col-bg, $shadow, $padding)
+    .row
+        +row()
+        .col   
+            +col($gutter,$m-top,$col-bg, $shadow, $padding)
+        @for $cols from 1 through $tots
+            +elements($cols, $tots, $gutter)
+            +offsets($cols, $tots, $gutter)

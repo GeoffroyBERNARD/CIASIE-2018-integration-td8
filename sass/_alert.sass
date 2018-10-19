@@ -1,0 +1,43 @@
+/* Couleurs par défaut (modifiable via _variables.sass) */
+$success: #a6e87d !default
+$danger: #ed5e4e !default
+$warning: #f2ac3c !default
+$information: #2fbaed !default
+$bg: null
+
+/* Taille par défaut (modifiable via _variables.sass) */
+$alert-width: 80% !default
+
+
+=alert_base($width)
+    width: $width
+    border-style: solid
+    border-radius: 25px
+    padding: 1em
+    margin: 1em
+
+=alert_color($type)
+    @if $type == success
+        $bg: $success !global
+    @else if $type == danger
+        $bg: $danger !global
+    @else if $type == warning
+        $bg: $warning !global
+    @else 
+        $bg: $information !global
+    background-color: lighten($bg, 25%)
+    color: $bg
+
+=alert()
+    .alert
+        +alert_base($alert-width)
+        &.success
+            +alert_color(success)
+        &.warning
+            +alert_color(warning)
+        &.information
+            +alert_color(information)
+        &.danger
+            +alert_color(danger)     
+
+    
